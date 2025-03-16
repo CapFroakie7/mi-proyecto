@@ -1,0 +1,26 @@
+<h2>Catálogo de productos</h2>
+
+<div *ngIf="loading">
+  <p>Cargando productos...</p>
+</div>
+
+<div *ngIf="!loading && productos.length === 0">
+  <p>No se encontraron productos.</p>
+</div>
+
+<div class="productos" *ngIf="!loading && productos.length > 0">
+  <div *ngFor="let producto of productos" class="producto">
+    <h3>{{ producto.nombre }}</h3>
+    <img [src]="producto.imagen" alt="{{ producto.nombre }}" *ngIf="producto.imagen" style="max-width: 100px;">
+    <p>Precio: ${{ producto.precio }}</p>
+    <p>Cantidad disponible: {{ producto.cantidad }}</p>
+    <button (click)="agregarAlCarrito(producto)" [disabled]="producto.cantidad <= 0">
+      {{ producto.cantidad > 0 ? 'Agregar al Carrito' : 'Sin stock' }}
+    </button>
+  </div>
+</div>
+
+<div class="actions">
+  <button (click)="irAlCarrito()" class="ir-carrito-btn">Ir al Carrito</button>
+  <button (click)="irAlInventario()">Ir al Inventario</button>
+</div>
