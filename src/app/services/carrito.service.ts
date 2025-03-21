@@ -35,28 +35,15 @@ export class CarritoService {
   eliminarProducto(id: number): void {
     const producto = this.carrito.find(p => p.id === id);
     if (producto) {
-      this.productoService.aumentarCantidad(id, 1);
+      this.productoService.aumentarCantidad(id, producto.cantidad); // Devolver toda la cantidad al inventario
       this.carrito = this.carrito.filter(p => p.id !== id);
       this.guardarCarrito();
     }
   }
 
-  agregarMas(index: number): void {
-    const producto = this.carrito[index];
-    if (producto) {
-      this.productoService.obtenerProducto().subscribe({
-        next: (productos) => {
-          const inventarioProducto = productos.find(p => p.id === producto.id);
-          if (inventarioProducto && inventarioProducto.cantidad > 0) {
-            producto.cantidad += 1;
-            this.productoService.disminuirCantidad(producto.id);
-            this.guardarCarrito();
-            console.log('Cantidad aumentada en carrito:', this.carrito);
-          }
-        },
-        error: (err) => console.error('Error al verificar inventario:', err)
-      });
-    }
+  actualizarCarrito(carrito: Producto[]): void {
+    this.carrito = carrito;
+    this.guardarCarrito();
   }
 
   descargaXML(): void {
@@ -106,7 +93,7 @@ export class CarritoService {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'carrito_cfdi.xml'; // Nombre del archivo descargado
+    a.download = 'carrito_cfdi.xml';
     a.click();
     URL.revokeObjectURL(url);
   }

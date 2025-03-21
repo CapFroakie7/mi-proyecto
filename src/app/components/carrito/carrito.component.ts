@@ -43,10 +43,32 @@ export class CarritoComponent implements OnInit {
     this.carritoService.descargaXML();
   }
 
-  agregarMas(index: number): void {
-    this.carritoService.agregarMas(index);
-    this.carrito = this.carritoService.obtenerCarrito();
-    this.cargarInventario();
+  aumentarCantidad(index: number): void {
+    const producto = this.carrito[index];
+    this.productoService.obtenerProducto().subscribe({
+      next: (productos) => {
+        const inventarioProducto = productos.find(p => p.id === producto.id);
+        if (inventarioProducto && inventarioProducto.cantidad > 0) {
+          producto.cantidad += 1;
+          this.productoService.disminuirCantidad(producto.id);
+          this.carritoService.actualizarCarrito(this.carrito);
+          this.cargarInventario();
+          console.log('Cantidad aumentada en carrito:', this.carrito);
+        }
+      },
+      error: (err) => console.error('Error al verificar inventario:', err)
+    });
+  }
+
+  disminuirCantidad(index: number): void {
+    const producto = this.carrito[index];
+    if (producto.cantidad > 1) {
+      producto.cantidad -= 1;
+      this.productoService.aumentarCantidad(producto.id, 1);
+      this.carritoService.actualizarCarrito(this.carrito);
+      this.cargarInventario();
+      console.log('Cantidad disminuida en carrito:', this.carrito);
+    }
   }
 
   eliminarProducto(id: number): void {

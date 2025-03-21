@@ -5,34 +5,27 @@
     <nombre>Jersey Cowboys Local</nombre>
     <precio>3200</precio>
     <imagen>/assets/vaqueros.jpg</imagen>
-    <cantidad>41</cantidad>
+    <cantidad>39</cantidad>
   </producto>
   <producto>
     <id>6</id>
     <nombre>Jersey Chivas 24/25</nombre>
     <precio>1900</precio>
     <imagen>/assets/chivas.jpg</imagen>
-    <cantidad>40</cantidad>
+    <cantidad>0</cantidad>
   </producto>
   <producto>
     <id>7</id>
     <nombre>Jersey Real Madrid 24/25</nombre>
     <precio>2200</precio>
     <imagen>/assets/real.jpg</imagen>
-    <cantidad>58</cantidad> 
+    <cantidad>57</cantidad>
   </producto>
   <producto>
     <id>9</id>
     <nombre>Balon Mundial</nombre>
     <precio>3000</precio>
     <imagen>/assets/BalonMundial.jpg</imagen>
-    <cantidad>10</cantidad>
-  </producto>
-  <producto>
-    <id>10</id>
-    <nombre>Tenis</nombre>
-    <precio>2000</precio>
-    <imagen>/assets/default.jpg</imagen>
     <cantidad>10</cantidad>
   </producto>
 </productos>

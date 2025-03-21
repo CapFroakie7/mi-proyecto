@@ -1,25 +1,55 @@
-<h2>Catálogo de productos</h2>
+<!-- Encabezado -->
+<header class="header">
+  <h1>TUDI</h1>
+</header>
 
-<div *ngIf="loading">
+<!-- Barra de búsqueda y filtros -->
+<div class="search-filter">
+  <input type="text" placeholder="Buscar..." class="search-bar" />
+  <div class="filters">
+    <button>Camisas</button>
+    <button>Balones</button>
+    <button>Accesorios</button>
+    <button>Calzado</button>
+  </div>
+</div>
+
+<!-- Mensajes de carga o vacío -->
+<div *ngIf="loading" class="loading">
   <p>Cargando productos...</p>
 </div>
 
-<div *ngIf="!loading && productos.length === 0">
+<div *ngIf="!loading && productos.length === 0" class="empty">
   <p>No se encontraron productos.</p>
 </div>
 
-<div class="productos" *ngIf="!loading && productos.length > 0">
-  <div *ngFor="let producto of productos" class="producto">
+<!-- Lista de productos -->
+<div class="productos-grid" *ngIf="!loading && productos.length > 0">
+  <div *ngFor="let producto of productos" class="producto-card">
+    <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen" *ngIf="producto.imagen" />
     <h3>{{ producto.nombre }}</h3>
-    <img [src]="producto.imagen" alt="{{ producto.nombre }}" *ngIf="producto.imagen" style="max-width: 100px;">
-    <p>Precio: ${{ producto.precio }}</p>
-    <p>Cantidad disponible: {{ producto.cantidad }}</p>
-    <button (click)="agregarAlCarrito(producto)" [disabled]="producto.cantidad <= 0">
-      {{ producto.cantidad > 0 ? 'Agregar al Carrito' : 'Sin stock' }}
+    <p class="precio">${{ producto.precio }}</p>
+    <p class="cantidad">Cantidad disponible: {{ producto.cantidad }}</p>
+    <button class="button" (click)="agregarAlCarrito(producto)" [disabled]="producto.cantidad <= 0">
+      <span>{{ producto.cantidad > 0 ? 'Agregar al carrito' : 'Sin stock' }}</span>
+      <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cart-icon">
+        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+        <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+        <g id="SVGRepo_iconCarrier">
+          <defs></defs>
+          <g id="cart">
+            <circle r="1.91" cy="20.59" cx="10.07" class="cls-1"></circle>
+            <circle r="1.91" cy="20.59" cx="18.66" class="cls-1"></circle>
+            <path d="M.52,1.5H3.18a2.87,2.87,0,0,1,2.74,2L9.11,13.91H8.64A2.39,2.39,0,0,0,6.25,16.3h0a2.39,2.39,0,0,0,2.39,2.38h10" class="cls-1"></path>
+            <polyline points="7.21 5.32 22.48 5.32 22.48 7.23 20.57 13.91 9.11 13.91" class="cls-1"></polyline>
+          </g>
+        </g>
+      </svg>
     </button>
   </div>
 </div>
 
+<!-- Botones de navegación -->
 <div class="actions">
   <button (click)="irAlCarrito()" class="ir-carrito-btn">Ir al Carrito</button>
   <button (click)="irAlInventario()">Ir al Inventario</button>

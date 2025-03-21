@@ -1,46 +1,44 @@
-/* carrito.component.css */
-
 /* Estilos generales */
 h2 {
   color: #2c3e50;
   text-align: center;
   margin: 30px 0;
-  font-size: 2.5em; /* Aumentado el tamaño del título */
-  font-weight: 600; /* Añadido peso a la fuente */
+  font-size: 2.5em;
+  font-weight: 600;
 }
 
 /* Mensaje carrito vacío */
 div[ngIf] > div:first-child {
   text-align: center;
-  padding: 40px; /* Aumentado el padding */
+  padding: 40px;
   background: #f8f9fa;
-  border-radius: 12px; /* Redondeado los bordes */
-  margin: 30px auto; /* Aumentado el margen */
-  max-width: 600px; /* Aumentado el ancho máximo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 div[ngIf] > div:first-child p {
   color: #7f8c8d;
-  font-size: 1.2em; /* Aumentado el tamaño de la fuente */
-  margin: 10px 0; /* Añadido margen */
-  line-height: 1.6; /* Mejorado el espaciado de línea */
+  font-size: 1.2em;
+  margin: 10px 0;
+  line-height: 1.6;
 }
 
 /* Tabla del carrito */
 .carrito-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 30px 0; /* Aumentado el margen */
+  margin: 30px 0;
   background: white;
-  border-radius: 12px; /* Redondeado los bordes */
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .carrito-table th,
 .carrito-table td {
-  padding: 18px 15px; /* Aumentado el padding */
+  padding: 18px 15px;
   text-align: center;
   border-bottom: 1px solid #ecf0f1;
 }
@@ -48,46 +46,91 @@ div[ngIf] > div:first-child p {
 .carrito-table th {
   background-color: #3498db;
   color: white;
-  font-weight: 600; /* Añadido peso a la fuente */
-  text-transform: uppercase; /* Convertido a mayúsculas */
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .carrito-table tr:hover {
   background-color: #f8f9fa;
-  transition: background-color 0.3s ease; /* Añadida transición */
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para las imágenes */
+.producto-imagen {
+  width: 80px; /* Tamaño fijo para todas las imágenes */
+  height: 80px;
+  object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+  border-radius: 8px;
+  border: 2px solid #ecf0f1;
+}
+
+/* Estilo para la columna de acciones */
+.carrito-table td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Estilo para el control de cantidad */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px; /* Espacio entre el control de cantidad y el botón "Eliminar" */
+}
+
+.quantity-control button {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 50%; /* Botones redondeados */
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-control button:hover:not([disabled]) {
+  background-color: #2980b9;
+}
+
+.quantity-control button[disabled] {
+  background-color: #bdc3c7 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.quantity-control span {
+  min-width: 30px;
+  text-align: center;
+  font-size: 1.1em;
+  color: #2c3e50;
 }
 
 /* Botones de acciones */
 button {
-  padding: 10px 20px; /* Aumentado el padding */
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px; /* Redondeado los bordes */
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600; /* Añadido peso a la fuente */
+  font-weight: 600;
   transition: all 0.3s ease;
-  margin: 5px; /* Aumentado el margen */
-  font-size: 1em; /* Ajustado el tamaño de la fuente */
+  margin: 5px;
+  font-size: 1em;
 }
 
 button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); /* Sombra de enfoque mejorada */
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
 }
 
 button[disabled] {
   background-color: #bdc3c7 !important;
   cursor: not-allowed;
   opacity: 0.7;
-}
-
-/* Botón Agregar más */
-button:first-child {
-  background-color: #2ecc71;
-  color: white;
-}
-
-button:first-child:hover:not([disabled]) {
-  background-color: #27ae60;
 }
 
 /* Botón Eliminar */
@@ -97,34 +140,65 @@ button:nth-child(2) {
 }
 
 button:nth-child(2):hover {
-  background-color: #c0392b;
+  background-color: #1b2ad3; /* Corregí el color de hover para que sea más coherente */
 }
 
-/* Botón Recibo */
-button:last-child {
-  background-color: #3498db;
-  color: white;
-  padding: 15px 30px; /* Aumentado el padding */
-  font-size: 1.2em; /* Aumentado el tamaño de la fuente */
-  display: block;
-  margin: 30px auto; /* Aumentado el margen */
+/* Botón Shop now (Pagar) */
+.btn {
+  padding: 1.1em 2em;
+  background: none;
+  border: 2px solid #fff;
+  font-size: 15px;
+  color: #131313;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  border-radius: 12px;
+  background-color: #ecd448;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+  display: block; /* Para centrar el botón */
+  margin: 0 auto; /* Centrado horizontal */
 }
 
-button:last-child:hover {
-  background-color: #2980b9;
+.btn:before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.btn:hover {
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+.btn:hover::before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.9);
 }
 
 /* Sección de acciones */
 .actions {
   text-align: center;
-  margin-top: 40px; /* Aumentado el margen */
+  margin-top: 40px;
 }
 
 .actions button {
   background-color: #95a5a6;
   color: white;
-  padding: 15px 35px; /* Aumentado el padding */
-  font-size: 1.1em; /* Aumentado el tamaño de la fuente */
+  padding: 15px 35px;
+  font-size: 1.1em;
 }
 
 .actions button:hover {
@@ -140,21 +214,32 @@ button:last-child:hover {
 
   .carrito-table td {
     min-width: 120px;
-    padding: 12px 10px; /* Ajustado el padding */
+    padding: 12px 10px;
+  }
+
+  .producto-imagen {
+    width: 60px; /* Tamaño más pequeño para pantallas pequeñas */
+    height: 60px;
   }
 
   button {
-    padding: 8px 15px; /* Ajustado el padding */
+    padding: 8px 15px;
     font-size: 0.9em;
   }
 
   h2 {
-    font-size: 2em; /* Ajustado el tamaño del título */
+    font-size: 2em;
     margin: 20px 0;
   }
 
   div[ngIf] > div:first-child {
-    padding: 30px; /* Ajustado el padding */
+    padding: 30px;
+  }
+
+  .quantity-control button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 }
 
@@ -165,11 +250,4 @@ tr {
 
 tr:active {
   transform: scale(0.98);
-}
-
-.carrito-table td:last-child {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px; /* Aumentado el espacio entre botones */
 }

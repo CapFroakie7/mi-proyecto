@@ -24,13 +24,17 @@
         <td>${{ producto.precio }}</td>
         <td>{{ producto.cantidad }}</td>
         <td>
-          <button (click)="agregarMas(i)" [disabled]="!isProductInStock(producto.id)">Agregar más</button>
+          <div class="quantity-control">
+            <button (click)="disminuirCantidad(i)" [disabled]="producto.cantidad <= 1">−</button>
+            <span>{{ producto.cantidad }}</span>
+            <button (click)="aumentarCantidad(i)" [disabled]="!isProductInStock(producto.id)">+</button>
+          </div>
           <button (click)="eliminarProducto(producto.id)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <button (click)="descargarCarrito()">Recibo</button>
+  <button class="btn" (click)="descargarCarrito()">Pagar</button>
 </div>
 
 <div class="actions">
