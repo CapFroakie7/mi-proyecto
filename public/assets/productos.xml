@@ -5,7 +5,7 @@
     <nombre>Jersey Cowboys Local</nombre>
     <precio>3200</precio>
     <imagen>/assets/vaqueros.jpg</imagen>
-    <cantidad>39</cantidad>
+    <cantidad>40</cantidad>
   </producto>
   <producto>
     <id>6</id>
@@ -19,7 +19,7 @@
     <nombre>Jersey Real Madrid 24/25</nombre>
     <precio>2200</precio>
     <imagen>/assets/real.jpg</imagen>
-    <cantidad>57</cantidad>
+    <cantidad>58</cantidad>
   </producto>
   <producto>
     <id>9</id>

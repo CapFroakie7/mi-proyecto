@@ -7,6 +7,104 @@ h2 {
   font-weight: 600;
 }
 
+/* Contenedor del botón "Back" */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+/* Estilo del botón "Back" (From Uiverse.io by Jedi-hongbin) */
+.back-button {
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+}
+
+.back-button > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+.back-button:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
+.back-button:hover {
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Estilo del botón "Eliminar" (From Uiverse.io by vinodjangid07) */
+.delete-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-button .svgIcon {
+  width: 12px;
+  transition-duration: .3s;
+}
+
+.delete-button .svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: .3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .svgIcon {
+  width: 50px;
+  transition-duration: .3s;
+  transform: translateY(60%);
+}
+
+.delete-button::before {
+  position: absolute;
+  top: -20px;
+  content: "Delete";
+  color: white;
+  transition-duration: .3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: .3s;
+}
+
 /* Mensaje carrito vacío */
 div[ngIf] > div:first-child {
   text-align: center;
@@ -133,16 +231,6 @@ button[disabled] {
   opacity: 0.7;
 }
 
-/* Botón Eliminar */
-button:nth-child(2) {
-  background-color: #e74c3c;
-  color: white;
-}
-
-button:nth-child(2):hover {
-  background-color: #1b2ad3; /* Corregí el color de hover para que sea más coherente */
-}
-
 /* Botón Shop now (Pagar) */
 .btn {
   padding: 1.1em 2em;
@@ -240,6 +328,11 @@ button:nth-child(2):hover {
     width: 30px;
     height: 30px;
     font-size: 14px;
+  }
+
+  .back-button-container {
+    top: 10px;
+    left: 10px;
   }
 }
 
