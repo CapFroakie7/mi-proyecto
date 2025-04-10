@@ -1,0 +1,66 @@
+<!-- Encabezado -->
+<header class="header">
+  <div class="header-content">
+    <h1>TUDI</h1>
+    <button class="cart-button" (click)="irAlCarrito()">
+      Carrito
+      <svg class="cartIcon" viewBox="0 0 576 512">
+        <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Barra de búsqueda y filtros -->
+<div class="search-filter">
+  <input type="text" placeholder="Buscar..." class="search-bar" />
+  <div class="filters">
+    <button [class.active]="filtroCategoria === 'Playeras'" (click)="filtrarPorCategoria('Playeras')">Playeras</button>
+    <button [class.active]="filtroCategoria === 'Shorts'" (click)="filtrarPorCategoria('Shorts')">Shorts</button>
+    <button [class.active]="filtroCategoria === 'Balones'" (click)="filtrarPorCategoria('Balones')">Equipo deportivo</button>
+    <button [class.active]="filtroCategoria === 'Uniformes'" (click)="filtrarPorCategoria('Uniformes')">Uniformes</button>
+    <button [class.active]="filtroCategoria === 'Zapatillas'" (click)="filtrarPorCategoria('Zapatillas')">Calzado</button>
+    <button [class.active]="filtroCategoria === null" (click)="mostrarTodos()">Mostrar todo</button>
+  </div>
+</div>
+
+<!-- Contenedor principal para los productos con scroll -->
+<div class="catalog-container">
+  <!-- Mensajes de carga o vacío -->
+  <div *ngIf="loading" class="loading">
+    <p>Cargando productos...</p>
+  </div>
+
+  <div *ngIf="!loading && productosFiltrados.length === 0" class="empty">
+    <p>No se encontraron productos.</p>
+  </div>
+
+  <!-- Lista de productos con scroll -->
+  <div class="productos-list" *ngIf="!loading && productosFiltrados.length > 0">
+    <div *ngFor="let producto of productosFiltrados" class="producto-card">
+      <div class="producto-content">
+        <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen" *ngIf="producto.imagen" />
+        <div class="producto-details">
+          <h3>{{ producto.nombre }}</h3>
+          <p class="precio">${{ producto.precio }}</p>
+          <p class="cantidad">Cantidad disponible: {{ producto.cantidad }}</p>
+          <button class="button" (click)="agregarAlCarrito(producto)" [disabled]="producto.cantidad <= 0">
+            <span>{{ producto.cantidad > 0 ? 'Agregar al carrito' : 'Sin stock' }}</span>
+            <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cart-icon">
+              <circle cx="10.07" cy="20.59" r="1.91" class="cls-1"/>
+              <circle cx="18.66" cy="20.59" r="1.91" class="cls-1"/>
+              <path d="M.52,1.5H3.18a2.87,2.87,0,0,1,2.74,2L9.11,13.91H8.64A2.39,2.39,0,0,0,6.25,16.3h0a2.39,2.39,0,0,0,2.39,2.38h10" class="cls-1"/>
+              <polyline points="7.21 5.32 22.48 5.32 22.48 7.23 20.57 13.91 9.11 13.91" class="cls-1"/>
+            </svg>
+          </button>
+          <a href="#" class="ver-mas">Ver más detalles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botones de navegación -->
+<div class="actions">
+  <button (click)="irAlInventario()">Ir al Inventario</button>
+</div>
