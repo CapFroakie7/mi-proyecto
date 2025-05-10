@@ -1,0 +1,337 @@
+/* Estilo del encabezado */
+.header {
+  background-color: #003087;
+  color: white;
+  padding: 10px 20px;
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes the logo and button to opposite ends */
+  max-width: 1200px; /* Matches the max-width of the product list for consistency */
+  margin: 0 auto; /* Centers the content */
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Estilo del botón "Ir al Carrito" en el header */
+.cart-button {
+  width: 180px;
+  height: 40px;
+  background-image: linear-gradient(rgb(214, 202, 254), rgb(158, 129, 254));
+  border: none;
+  border-radius: 50px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 1px 3px 0px rgb(139, 113, 255);
+  transition-duration: .3s;
+  margin-left: auto; /* Pushes the button to the far right */
+}
+
+.cartIcon {
+  width: 14px;
+  height: fit-content;
+}
+
+.cartIcon path {
+  fill: white;
+}
+
+.cart-button:active {
+  transform: translate(2px, 0px);
+  box-shadow: 0px 1px 0px rgb(139, 113, 255);
+  padding-bottom: 1px;
+}
+
+/* Estilo de la barra de búsqueda y filtros */
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  position: sticky; /* Make search bar sticky */
+  top: 60px; /* Adjust based on header height */
+  z-index: 90;
+}
+
+.search-bar {
+  padding: 8px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filters button {
+  padding: 8px 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filters button:hover {
+  background-color: #e0e0e0;
+}
+
+.filters button.active {
+  background-color: #003087; /* Color del encabezado para consistencia */
+  color: white;
+  border-color: #003087;
+}
+
+/* Contenedor del catálogo con scroll */
+.catalog-container {
+  max-width: 800px; /* Matches the max-width of productos-list */
+  margin: 0 auto;
+  height: 700px; /* Increased height to make it longer */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc; /* Border to match the style in the image */
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+/* Estilo de los mensajes de carga y vacío */
+.loading,
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* Estilo de la lista de productos */
+.productos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Estilo de cada tarjeta de producto */
+.producto-card {
+  background: white;
+  border: 2px solid #ccc; /* Slightly thicker border to match the image */
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.producto-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.producto-imagen {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ecf0f1;
+}
+
+.producto-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.producto-details h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.precio {
+  color: #34495e;
+  margin: 5px 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.cantidad {
+  color: #7f8c8d;
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+/* Estilo del enlace "Ver más detalles" */
+.ver-mas {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.ver-mas:hover {
+  text-decoration: underline;
+}
+
+/* Estilo del botón "Agregar al carrito" */
+.button {
+  height: 60px;
+  width: 200px;
+  background: linear-gradient(45deg, #1e3c72, #2a5298);
+  border: 2px solid rgb(92, 182, 207);
+  color: #eee;
+  transition: .6s;
+  font-size: 15px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.button span {
+  transform: translateX(10px);
+  transition: .5s;
+}
+
+.button svg {
+  transform: translateX(-300px);
+  transition: .6s;
+  z-index: 3;
+  height: 20px;
+}
+
+.button:hover {
+  width: 60px;
+  background-color: rgba(51, 34, 51, 0.815);
+  box-shadow: 20px 20px 96px #bebebe, -20px -20px 96px #ffffff;
+}
+
+.button:hover svg {
+  transform: translateX(-5px);
+}
+
+.button:hover span {
+  transform: translateY(70px);
+  font-size: .1rem;
+}
+
+.button:disabled {
+  background-color: #bdc3c7 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.button[disabled]:hover {
+  transform: none !important;
+}
+
+/* Estilo de los botones de navegación */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.actions button {
+  padding: 12px 35px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Animación de carga */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading p {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .producto-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .producto-imagen {
+    width: 120px;
+    height: 120px;
+  }
+
+  .search-filter {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cart-button {
+    width: 100%;
+    max-width: 180px;
+    margin-left: 0; /* Reset margin-left in mobile view */
+  }
+}
+
+@media (max-width: 480px) {
+  .producto-imagen {
+    width: 100px;
+    height: 100px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .actions button {
+    width: 100%;
+    max-width: 200px;
+  }
+}

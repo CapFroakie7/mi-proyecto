@@ -1,0 +1,379 @@
+/* Estilos generales */
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin: 30px 0;
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+/* Contenedor del botón "Back" */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+/* Estilo del botón "Back" (From Uiverse.io by Jedi-hongbin) */
+.back-button {
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+}
+
+.back-button > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+.back-button:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
+.back-button:hover {
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Estilo del botón "Eliminar" (From Uiverse.io by vinodjangid07) */
+.delete-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-button .svgIcon {
+  width: 12px;
+  transition-duration: .3s;
+}
+
+.delete-button .svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: .3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .svgIcon {
+  width: 50px;
+  transition-duration: .3s;
+  transform: translateY(60%);
+}
+
+.delete-button::before {
+  position: absolute;
+  top: -20px;
+  content: "Delete";
+  color: white;
+  transition-duration: .3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: .3s;
+}
+
+/* Mensaje carrito vacío */
+div[ngIf] > div:first-child {
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+div[ngIf] > div:first-child p {
+  color: #7f8c8d;
+  font-size: 1.2em;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+/* Tabla del carrito */
+.carrito-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.carrito-table th,
+.carrito-table td {
+  padding: 18px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.carrito-table th {
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.carrito-table tr:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para las imágenes */
+.producto-imagen {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ecf0f1;
+}
+
+/* Estilo para la columna de acciones */
+.carrito-table td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Estilo para el control de cantidad */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.quantity-control button {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-control button:hover:not([disabled]) {
+  background-color: #2980b9;
+}
+
+.quantity-control button[disabled] {
+  background-color: #bdc3c7 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.quantity-control span {
+  min-width: 30px;
+  text-align: center;
+  font-size: 1.1em;
+  color: #2c3e50;
+}
+
+/* Botones de acciones */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin: 5px;
+  font-size: 1em;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+}
+
+button[disabled] {
+  background-color: #bdc3c7 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Estilo para el contenedor del botón de PayPal */
+#paypal-button-container {
+  margin: 30px auto;
+  max-width: 300px;
+  display: block;
+  text-align: center;
+}
+
+#paypal-button-container.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Estilo personalizado para el botón de PayPal (hereda .btn) */
+#paypal-button-container .paypal-buttons {
+  padding: 1.1em 2em;
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  background-color: #ecd448;
+  box-shadow: 0 2px 0 2px #000;
+  transition: all 0.3s;
+  font-weight: bolder;
+  color: #131313;
+  display: inline-block;
+}
+
+#paypal-button-container .paypal-buttons:hover {
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+#paypal-button-container .paypal-buttons:active {
+  transform: scale(0.9);
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #e74c3c;
+  text-align: center;
+  margin: 15px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: #f9e1e1;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Indicador de carga */
+.loading {
+  text-align: center;
+  color: #3498db;
+  margin: 15px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: #e8f0fe;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección de acciones */
+.actions {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.actions button {
+  background-color: #95a5a6;
+  color: white;
+  padding: 15px 35px;
+  font-size: 1.1em;
+}
+
+.actions button:hover {
+  background-color: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carrito-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .carrito-table td {
+    min-width: 120px;
+    padding: 12px 10px;
+  }
+
+  .producto-imagen {
+    width: 60px;
+    height: 60px;
+  }
+
+  button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+
+  h2 {
+    font-size: 2em;
+    margin: 20px 0;
+  }
+
+  div[ngIf] > div:first-child {
+    padding: 30px;
+  }
+
+  .quantity-control button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .back-button-container {
+    top: 10px;
+    left: 10px;
+  }
+
+  #paypal-button-container {
+    max-width: 250px;
+  }
+
+  #paypal-button-container .paypal-buttons {
+    padding: 0.8em 1.5em;
+    font-size: 14px;
+  }
+
+  .error-message,
+  .loading {
+    font-size: 1em;
+    padding: 8px;
+  }
+}
+
+/* Efectos adicionales */
+tr {
+  transition: transform 0.2s ease;
+}
+
+tr:active {
+  transform: scale(0.98);
+}

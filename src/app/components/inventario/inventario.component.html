@@ -1,0 +1,99 @@
+<h2>Inventario de Productos</h2>
+
+<!-- Mostrar mensaje de error si existe -->
+<div *ngIf="errorMessage" style="color: red; margin-bottom: 10px;">
+  {{ errorMessage }}
+</div>
+
+<!-- Mostrar mensaje de éxito si existe -->
+<div *ngIf="successMessage" style="color: green; margin-bottom: 10px;">
+  {{ successMessage }}
+</div>
+
+<div class="form-container">
+  <h3>{{ isEditing ? 'Editar Producto' : selectedProducto ? 'Consultar Producto' : 'Crear Nuevo Producto' }}</h3>
+  <form *ngIf="!selectedProducto || isEditing" (ngSubmit)="isEditing ? actualizarProducto() : crearProducto()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" [(ngModel)]="productoForm.nombre" name="nombre" required placeholder="Nombre del producto">
+    </div>
+    <div>
+      <label for="precio">Precio:</label>
+      <input id="precio" type="number" [(ngModel)]="productoForm.precio" name="precio" required min="0.01" placeholder="0.00">
+    </div>
+    <div>
+      <label for="imagen">Imagen (URL):</label>
+      <input id="imagen" [(ngModel)]="productoForm.imagen" name="imagen" placeholder="/assets/image.jpg">
+    </div>
+    <div>
+      <label for="cantidad">Cantidad:</label>
+      <input id="cantidad" type="number" [(ngModel)]="productoForm.cantidad" name="cantidad" required min="0" placeholder="0">
+    </div>
+    <div>
+      <label for="descripcion">Descripción:</label>
+      <input id="descripcion" [(ngModel)]="productoForm.descripcion" name="descripcion" placeholder="Descripción del producto">
+    </div>
+    <div>
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" [(ngModel)]="productoForm.categoria" name="categoria" required>
+        <option value="" disabled>Selecciona una categoría</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+      </select>
+    </div>
+    <button type="submit" [disabled]="!productoForm.nombre || productoForm.precio <= 0 || productoForm.cantidad < 0 || !productoForm.categoria || productoForm.categoria === ''">
+      {{ isEditing ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button type="button" *ngIf="isEditing || selectedProducto" (click)="resetForm()">Cancelar</button>
+  </form>
+
+  <div *ngIf="selectedProducto && !isEditing">
+    <p><strong>ID:</strong> {{ selectedProducto.id }}</p>
+    <p><strong>Nombre:</strong> {{ selectedProducto.nombre }}</p>
+    <p><strong>Precio:</strong> ${{ selectedProducto.precio }}</p>
+    <p><strong>Imagen:</strong> {{ selectedProducto.imagen || 'Sin imagen' }}</p>
+    <p><strong>Cantidad:</strong> {{ selectedProducto.cantidad }}</p>
+    <p><strong>Descripción:</strong> {{ selectedProducto.descripcion || 'Sin descripción' }}</p>
+    <p><strong>Categoría:</strong> {{ selectedProducto.categoria || 'Sin categoría' }}</p>
+    <img [src]="selectedProducto.imagen" alt="{{selectedProducto.nombre}}" style="max-width: 100px;" *ngIf="selectedProducto.imagen">
+    <button (click)="resetForm()">Cerrar</button>
+  </div>
+</div>
+
+<table *ngIf="productos.length > 0" class="product-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Imagen</th>
+      <th>Cantidad</th>
+      <th>Categoría</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of productos">
+      <td>{{ producto.id }}</td>
+      <td>{{ producto.nombre }}</td>
+      <td>${{ producto.precio }}</td>
+      <td>
+        <img [src]="producto.imagen" alt="{{producto.nombre}}" style="max-width: 50px;" *ngIf="producto.imagen">
+        <span *ngIf="!producto.imagen">Sin imagen</span>
+      </td>
+      <td>{{ producto.cantidad }}</td>
+      <td>{{ producto.categoria || 'Sin categoría' }}</td>
+      <td>
+        <button (click)="consultarProducto(producto)">Consultar</button>
+        <button (click)="editarProducto(producto)">Editar</button>
+        <button (click)="eliminarProducto(producto.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="productos.length === 0">No hay productos en el inventario.</p>
+
+<div class="actions">
+  <button (click)="generarXML()">Generar XML</button>
+  <button (click)="irAlCatalogo()">Regresar al Catálogo</button>
+</div>

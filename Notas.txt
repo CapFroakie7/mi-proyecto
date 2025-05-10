@@ -1,0 +1,10 @@
+para hacer que la pagina funcione se debe poner primeor el:
+
+ng serve (en la raiz del proyecto)
+
+
+despues dentro de la carpeta backend (cd backend):
+
+node index.js
+
+se debe prender el xampp

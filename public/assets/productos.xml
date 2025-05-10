@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productos>
+  <producto>
+    <id>5</id>
+    <nombre>Jersey Cowboys Local</nombre>
+    <precio>3200</precio>
+    <imagen>/assets/vaqueros.jpg</imagen>
+    <cantidad>39</cantidad>
+  </producto>
+  <producto>
+    <id>6</id>
+    <nombre>Jersey Chivas 24/25</nombre>
+    <precio>1900</precio>
+    <imagen>/assets/chivas.jpg</imagen>
+    <cantidad>0</cantidad>
+  </producto>
+  <producto>
+    <id>7</id>
+    <nombre>Jersey Real Madrid 24/25</nombre>
+    <precio>2200</precio>
+    <imagen>/assets/real.jpg</imagen>
+    <cantidad>58</cantidad>
+  </producto>
+  <producto>
+    <id>9</id>
+    <nombre>Balon Mundial</nombre>
+    <precio>3000</precio>
+    <imagen>/assets/BalonMundial.jpg</imagen>
+    <cantidad>10</cantidad>
+  </producto>
+</productos>
