@@ -3,7 +3,7 @@
   background-color: #003087;
   color: white;
   padding: 10px 20px;
-  position: sticky; /* Make header sticky */
+  position: sticky;
   top: 0;
   z-index: 100;
 }
@@ -11,9 +11,9 @@
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Pushes the logo and button to opposite ends */
-  max-width: 1200px; /* Matches the max-width of the product list for consistency */
-  margin: 0 auto; /* Centers the content */
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header h1 {
@@ -37,7 +37,7 @@
   cursor: pointer;
   box-shadow: 1px 3px 0px rgb(139, 113, 255);
   transition-duration: .3s;
-  margin-left: auto; /* Pushes the button to the far right */
+  margin-left: auto;
 }
 
 .cartIcon {
@@ -62,8 +62,8 @@
   align-items: center;
   padding: 10px;
   background-color: #f0f0f0;
-  position: sticky; /* Make search bar sticky */
-  top: 60px; /* Adjust based on header height */
+  position: sticky;
+  top: 60px;
   z-index: 90;
 }
 
@@ -93,18 +93,18 @@
 }
 
 .filters button.active {
-  background-color: #003087; /* Color del encabezado para consistencia */
+  background-color: #003087;
   color: white;
   border-color: #003087;
 }
 
 /* Contenedor del catálogo con scroll */
 .catalog-container {
-  max-width: 800px; /* Matches the max-width of productos-list */
+  max-width: 800px;
   margin: 0 auto;
-  height: 700px; /* Increased height to make it longer */
-  overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ccc; /* Border to match the style in the image */
+  height: 700px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   padding: 20px;
@@ -128,7 +128,7 @@
 /* Estilo de cada tarjeta de producto */
 .producto-card {
   background: white;
-  border: 2px solid #ccc; /* Slightly thicker border to match the image */
+  border: 2px solid #ccc;
   border-radius: 8px;
   padding: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -280,6 +280,60 @@
   animation: pulse 1.5s infinite;
 }
 
+/* Estilos para los modales */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content img.modal-imagen {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal-content button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo para el mensaje "Sin stock" */
+.sin-stock {
+  color: red;
+  font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .producto-content {
@@ -315,7 +369,7 @@
   .cart-button {
     width: 100%;
     max-width: 180px;
-    margin-left: 0; /* Reset margin-left in mobile view */
+    margin-left: 0;
   }
 }
 

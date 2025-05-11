@@ -61,8 +61,25 @@
     </tbody>
   </table>
 
+  <!-- Contenedor para el subtotal -->
+  <div class="subtotal-container">
+    <p>Subtotal: ${{ calcularSubtotal().toFixed(2) }}</p>
+    <p>IVA (16%): ${{ (calcularSubtotal() * 0.16).toFixed(2) }}</p>
+    <p>Total: ${{ (calcularSubtotal() * 1.16).toFixed(2) }}</p>
+  </div>
+
   <!-- Contenedor para el botón de PayPal -->
   <div id="paypal-button-container" [class.disabled]="isLoading"></div>
+</div>
+
+<!-- Modal para mensaje de éxito de compra -->
+<div class="modal" *ngIf="mostrarModalExito" (click)="cerrarModalExito()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>¡Compra Exitosa!</h2>
+    <p>Tu compra se ha realizado con éxito.</p>
+    <p><strong>ID de Transacción:</strong> {{ transactionId }}</p>
+    <button (click)="cerrarModalExito()">Descargar XML</button>
+  </div>
 </div>
 
 <div class="actions">

@@ -13,7 +13,7 @@
 
 <!-- Barra de búsqueda y filtros -->
 <div class="search-filter">
-  <input type="text" placeholder="Buscar..." class="search-bar" />
+  <input type="text" placeholder="Buscar..." class="search-bar" (input)="buscarProductos($event)" />
   <div class="filters">
     <button [class.active]="filtroCategoria === 'Playeras'" (click)="filtrarPorCategoria('Playeras')">Playeras</button>
     <button [class.active]="filtroCategoria === 'Shorts'" (click)="filtrarPorCategoria('Shorts')">Shorts</button>
@@ -53,7 +53,7 @@
               <polyline points="7.21 5.32 22.48 5.32 22.48 7.23 20.57 13.91 9.11 13.91" class="cls-1"/>
             </svg>
           </button>
-          <a href="#" class="ver-mas">Ver más detalles</a>
+          <a href="#" class="ver-mas" (click)="mostrarDetalles(producto); $event.preventDefault()">Ver más detalles</a>
         </div>
       </div>
     </div>
@@ -63,4 +63,29 @@
 <!-- Botones de navegación -->
 <div class="actions">
   <button (click)="irAlInventario()">Ir al Inventario</button>
+</div>
+
+<!-- Modal para mensaje de éxito al agregar al carrito -->
+<div class="modal" *ngIf="mostrarModalExito" (click)="cerrarModalExito()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <p>¡Producto agregado al carrito con éxito!</p>
+    <button (click)="cerrarModalExito()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal para detalles del producto -->
+<div class="modal" *ngIf="mostrarModalDetalles" (click)="cerrarModalDetalles()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ productoSeleccionado?.nombre }}</h2>
+    <img [src]="productoSeleccionado?.imagen" alt="{{ productoSeleccionado?.nombre }}" *ngIf="productoSeleccionado?.imagen" class="modal-imagen" />
+    <p><strong>Descripción:</strong> {{ productoSeleccionado?.descripcion || 'No disponible' }}</p>
+    <p><strong>Precio:</strong> ${{ productoSeleccionado?.precio }}</p>
+    <p>
+      <strong>Stock:</strong>
+      <span *ngIf="productoSeleccionado?.cantidad === 0" class="sin-stock">Sin stock</span>
+      <span *ngIf="productoSeleccionado?.cantidad !== 0">{{ productoSeleccionado?.cantidad }}</span>
+    </p>
+    <p><strong>Categoría:</strong> {{ productoSeleccionado?.categoria }}</p>
+    <button (click)="cerrarModalDetalles()">Cerrar</button>
+  </div>
 </div>

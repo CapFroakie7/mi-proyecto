@@ -17,6 +17,10 @@ export class ProductoComponent implements OnInit {
   productosFiltrados: Producto[] = [];
   loading: boolean = true;
   filtroCategoria: string | null = null;
+  mostrarModalExito: boolean = false;
+  mostrarModalDetalles: boolean = false;
+  productoSeleccionado: Producto | null = null;
+  searchTerm: string = '';
 
   constructor(
     private productoService: ProductoService,
@@ -47,13 +51,22 @@ export class ProductoComponent implements OnInit {
   }
 
   filtrarProductos(): void {
+    let filtered = [...this.productos];
     if (this.filtroCategoria) {
-      this.productosFiltrados = this.productos.filter(
-        (producto) => producto.categoria === this.filtroCategoria
-      );
-    } else {
-      this.productosFiltrados = [...this.productos];
+      filtered = filtered.filter((producto) => producto.categoria === this.filtroCategoria);
     }
+    if (this.searchTerm) {
+      filtered = filtered.filter((producto) =>
+        producto.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+    this.productosFiltrados = filtered;
+  }
+
+  buscarProductos(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value;
+    this.filtrarProductos();
   }
 
   filtrarPorCategoria(categoria: string): void {
@@ -70,9 +83,24 @@ export class ProductoComponent implements OnInit {
     if (producto.cantidad > 0) {
       this.carritoService.agregarProducto(producto);
       console.log('Producto agregado al carrito:', producto);
+      this.mostrarModalExito = true;
     } else {
       alert('No hay stock disponible para este producto.');
     }
+  }
+
+  cerrarModalExito(): void {
+    this.mostrarModalExito = false;
+  }
+
+  mostrarDetalles(producto: Producto): void {
+    this.productoSeleccionado = { ...producto };
+    this.mostrarModalDetalles = true;
+  }
+
+  cerrarModalDetalles(): void {
+    this.mostrarModalDetalles = false;
+    this.productoSeleccionado = null;
   }
 
   irAlCarrito(): void {

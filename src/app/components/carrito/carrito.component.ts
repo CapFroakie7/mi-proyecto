@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carrito.service';
 import { ProductoService } from '../../services/producto.service';
@@ -14,11 +14,15 @@ declare var paypal: any; // Declare PayPal SDK
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent implements OnInit, AfterViewInit {
+export class CarritoComponent implements OnInit, AfterViewInit, OnDestroy {
   carrito: Producto[] = [];
   productosInventario: Producto[] = [];
   isLoading: boolean = false;
   errorMessage: string | null = null;
+  mostrarModalExito: boolean = false;
+  transactionId: string = '';
+  compraExitosa: Producto[] = [];
+  private isPayPalButtonRendered: boolean = false;
 
   constructor(
     private carritoService: CarritoService,
@@ -34,7 +38,17 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderPayPalButton();
+    if (!this.isPayPalButtonRendered && typeof paypal !== 'undefined') {
+      this.renderPayPalButton();
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Limpiar el script de PayPal para evitar problemas al recargar el componente
+    const script = document.querySelector(`script[src*="paypal.com/sdk/js"]`);
+    if (script) {
+      this.renderer.removeChild(document.body, script);
+    }
   }
 
   cargarInventario(): void {
@@ -51,18 +65,38 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   private loadPayPalScript(): void {
+    // Evitar cargar el script si ya existe
+    if (document.querySelector(`script[src*="paypal.com/sdk/js"]`)) {
+      if (typeof paypal !== 'undefined' && !this.isPayPalButtonRendered) {
+        this.renderPayPalButton();
+      }
+      return;
+    }
+
     const script = this.renderer.createElement('script');
     script.src = `https://www.paypal.com/sdk/js?client-id=AU4LfGMYtluPGQkrvgjQsRiPKugLsUl2Ah7b_RyLpy7DpJsDUbm3JXO7IA3GEvlsRrD33iMmFkzOsCNH&currency=MXN`;
-    script.onload = () => this.renderPayPalButton();
+    script.onload = () => {
+      console.log('PayPal SDK cargado');
+      if (!this.isPayPalButtonRendered) {
+        this.renderPayPalButton();
+      }
+    };
     script.onerror = () => {
       this.errorMessage = 'Error al cargar el SDK de PayPal. Intenta de nuevo más tarde.';
+      console.error('Error al cargar el SDK de PayPal');
     };
     this.renderer.appendChild(document.body, script);
   }
 
   private renderPayPalButton(): void {
-    if (this.carrito.length === 0 || !paypal) {
+    if (this.carrito.length === 0 || !paypal || this.isPayPalButtonRendered) {
+      console.warn('No se renderiza el botón de PayPal: carrito vacío, paypal no definido o ya renderizado');
       return;
+    }
+
+    const container = document.getElementById('paypal-button-container');
+    if (container) {
+      container.innerHTML = '';
     }
 
     paypal.Buttons({
@@ -95,7 +129,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
           return {
             name: item.nombre,
             unit_amount: { currency_code: 'MXN', value: precio.toFixed(2) },
-            quantity: item.cantidad.toString() // Ensure quantity is a string
+            quantity: item.cantidad.toString()
           };
         });
       
@@ -120,10 +154,9 @@ export class CarritoComponent implements OnInit, AfterViewInit {
         this.isLoading = true;
         this.errorMessage = null;
         try {
-          // Capture the payment
+          this.compraExitosa = [...this.carrito];
           const order = await actions.order.capture();
       
-          // Verify stock again before updating (to handle concurrent changes)
           const updates: { id: number, cantidad: number }[] = [];
           for (const item of this.carrito) {
             const inventarioProducto = this.productosInventario.find(p => p.id === item.id);
@@ -135,18 +168,16 @@ export class CarritoComponent implements OnInit, AfterViewInit {
             updates.push({ id: item.id, cantidad: item.cantidad });
           }
       
-          // Decrease stock
           for (const update of updates) {
             await this.productoService.disminuirCantidadEnCompra(update.id, update.cantidad).toPromise();
           }
       
-          // Clear the cart and update the local state
           this.carritoService.limpiarCarrito();
-          this.carrito = this.carritoService.obtenerCarrito(); // Sync with service state
-          this.cargarInventario(); // Refresh inventory to reflect stock changes
+          this.carrito = this.carritoService.obtenerCarrito();
+          this.cargarInventario();
       
-          // Show success message
-          alert('Compra realizada exitosamente. ID de transacción: ' + order.id);
+          this.transactionId = order.id;
+          this.mostrarModalExito = true;
         } catch (err) {
           console.error('Error al procesar el pago:', err);
           this.errorMessage = 'Error al procesar el pago. Intenta de nuevo.';
@@ -163,10 +194,32 @@ export class CarritoComponent implements OnInit, AfterViewInit {
         this.errorMessage = 'Pago cancelado por el usuario.';
         this.isLoading = false;
       }
-    }).render('#paypal-button-container').catch((err: any) => {
+    }).render('#paypal-button-container').then(() => {
+      this.isPayPalButtonRendered = true;
+    }).catch((err: any) => {
       console.error('Error al renderizar el botón de PayPal:', err);
       this.errorMessage = 'Error al cargar el botón de PayPal. Intenta de nuevo.';
     });
+  }
+
+  calcularSubtotal(): number {
+    let subtotal = 0;
+    this.carrito.forEach((producto) => {
+      const precio = Number(producto.precio) || 0;
+      subtotal += precio * producto.cantidad;
+    });
+    return subtotal;
+  }
+
+  cerrarModalExito(): void {
+    this.mostrarModalExito = false;
+    this.transactionId = '';
+    if (this.compraExitosa.length > 0) {
+      this.carritoService.descargaXML(this.compraExitosa);
+    } else {
+      this.errorMessage = 'No hay datos de compra para generar el XML.';
+    }
+    this.compraExitosa = [];
   }
 
   aumentarCantidad(index: number): void {
